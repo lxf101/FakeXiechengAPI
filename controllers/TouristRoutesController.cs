@@ -1,0 +1,74 @@
+﻿using FakeXiechengAPI.Dtos;
+using FakeXiechengAPI.Services;
+using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
+using System.Text.RegularExpressions;
+
+namespace FakeXiechengAPI.controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TouristRoutesController : Controller
+    {
+        private ITouristRouteRepository _touristRouteRepository;
+        private readonly IMapper _mapper;
+
+        // 构造函数注入依赖
+        // 将controller和interface联系了起来，即在controller中可以调用接口
+        public TouristRoutesController(ITouristRouteRepository touristRouteRepository, IMapper mapper)
+        {
+            _touristRouteRepository = touristRouteRepository;
+            _mapper = mapper;
+        }
+
+        [HttpGet]
+        public IActionResult GetTouristRoutes([FromQuery] string keyword, string rating)
+        {
+            Regex regex = new Regex(@"([A-Za-z0-9\-]+)(\d+)");
+
+
+
+
+            var routes = _touristRouteRepository.GetAllTouristRoutes(keyword);
+            if(routes == null || routes.Count() <= 0)
+            {
+                return NotFound("没有旅游路线");
+            }
+            var touristRoutesDto = _mapper.Map<IEnumerable<TouristRouteDto>>(routes);
+            return Ok(touristRoutesDto);
+        }
+
+        [HttpGet("{touristRouteId}")]
+        public IActionResult GetTouristRoutesById(Guid touristRouteId)
+        {
+            var route = _touristRouteRepository.GetTouristRoute(touristRouteId);
+            if(route == null)
+            {
+                return NotFound("没有找到相应的旅游路线");
+            }
+
+            // 在此实现Model --> DTO    从模型到DTO的映射
+            //var touristRouteDto = new TouristRouteDto()
+            //{
+            //    Id = route.Id,
+            //    Title = route.Title,
+            //    Description = route.Description,
+            //    Price = route.OriginalPrice * (decimal)(route.DiscountPresent ?? 1),
+            //    CreateTime = route.CreateTime,
+            //    UpdateTime = route.UpdateTime,
+            //    Features = route.Features,
+            //    Fees = route.Fees,
+            //    Notes = route.Notes,
+            //    Rating = route.Rating.ToString(),
+            //    TravelDays = route.TravelDays.ToString(),
+            //    TripType = route.TripType.ToString(),
+            //    DepartureCity = route.DepartureCity.ToString()
+            //};
+
+            var touristRouteDto = _mapper.Map<TouristRouteDto>(route);
+            return Ok(touristRouteDto);
+        }
+
+
+    }
+}

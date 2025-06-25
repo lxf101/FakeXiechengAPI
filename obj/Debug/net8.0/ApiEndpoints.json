@@ -1,0 +1,71 @@
+[
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.TouristRoutesController",
+    "Method": "GetTouristRoutes",
+    "RelativePath": "api/TouristRoutes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "keyword",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.TouristRoutesController",
+    "Method": "GetTouristRoutesById",
+    "RelativePath": "api/TouristRoutes/{touristRouteId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "touristRouteId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.TouristRoutePicturesController",
+    "Method": "GetPictureListForTouristRoute",
+    "RelativePath": "api/touristRoutes/{touristRouteId}/pictures",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "touristRouteId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.TouristRoutePicturesController",
+    "Method": "GetPicture",
+    "RelativePath": "api/touristRoutes/{touristRouteId}/pictures/{pictureId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "touristRouteId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "pictureId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
