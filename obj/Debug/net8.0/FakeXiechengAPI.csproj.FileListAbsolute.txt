@@ -137,3 +137,4 @@ D:\.net\FakeXiechengAPI\FakeXiechengAPI\bin\Debug\net8.0\Pomelo.EntityFrameworkC
 D:\.net\FakeXiechengAPI\FakeXiechengAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\.net\FakeXiechengAPI\FakeXiechengAPI\bin\Debug\net8.0\AutoMapper.dll
 D:\.net\FakeXiechengAPI\FakeXiechengAPI\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\.net\FakeXiechengAPI\FakeXiechengAPI\obj\Debug\net8.0\FakeXiechengAPI.sourcelink.json

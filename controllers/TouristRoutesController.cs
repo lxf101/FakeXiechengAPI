@@ -3,6 +3,8 @@ using FakeXiechengAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using System.Text.RegularExpressions;
+using FakeXiechengAPI.ResourceParameters;
+using FakeXiechengAPI.Models;
 
 namespace FakeXiechengAPI.controllers
 {
@@ -22,14 +24,9 @@ namespace FakeXiechengAPI.controllers
         }
 
         [HttpGet]
-        public IActionResult GetTouristRoutes([FromQuery] string keyword, string rating)
+        public IActionResult GetTouristRoutes([FromQuery] TouristRouteResourceParameters parameters)
         {
-            Regex regex = new Regex(@"([A-Za-z0-9\-]+)(\d+)");
-
-
-
-
-            var routes = _touristRouteRepository.GetAllTouristRoutes(keyword);
+            var routes = _touristRouteRepository.GetAllTouristRoutes(parameters.Keyword, parameters.RatingOperator, parameters.RatingValue);
             if(routes == null || routes.Count() <= 0)
             {
                 return NotFound("没有旅游路线");
@@ -38,8 +35,8 @@ namespace FakeXiechengAPI.controllers
             return Ok(touristRoutesDto);
         }
 
-        [HttpGet("{touristRouteId}")]
-        public IActionResult GetTouristRoutesById(Guid touristRouteId)
+        [HttpGet("{touristRouteId}", Name = "GetTouristRouteById")]
+        public IActionResult GetTouristRouteById(Guid touristRouteId)
         {
             var route = _touristRouteRepository.GetTouristRoute(touristRouteId);
             if(route == null)
@@ -70,5 +67,17 @@ namespace FakeXiechengAPI.controllers
         }
 
 
+
+        [HttpPost]
+        public IActionResult CreateTouristRoute([FromBody] TouristRouteForCreationDto touristRouteForCreationDto)
+        {
+            // 新Dto与model的映射关系
+            var touristRouteModel = _mapper.Map<TouristRoute>(touristRouteForCreationDto);
+            _touristRouteRepository.AddTouristRoute(touristRouteModel);
+            _touristRouteRepository.Save();
+
+            var touristRouteToReturn = _mapper.Map<TouristRouteDto>(touristRouteModel);
+            return CreatedAtRoute("GetTouristRouteById", new {touristRouteId = touristRouteToReturn.Id}, touristRouteToReturn);
+        }
     }
 }
