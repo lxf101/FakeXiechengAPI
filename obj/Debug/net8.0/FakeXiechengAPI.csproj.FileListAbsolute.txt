@@ -138,3 +138,9 @@ D:\.net\FakeXiechengAPI\FakeXiechengAPI\obj\Debug\net8.0\staticwebassets.upToDat
 D:\.net\FakeXiechengAPI\FakeXiechengAPI\bin\Debug\net8.0\AutoMapper.dll
 D:\.net\FakeXiechengAPI\FakeXiechengAPI\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\.net\FakeXiechengAPI\FakeXiechengAPI\obj\Debug\net8.0\FakeXiechengAPI.sourcelink.json
+D:\.net\FakeXiechengAPI\FakeXiechengAPI\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\.net\FakeXiechengAPI\FakeXiechengAPI\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+D:\.net\FakeXiechengAPI\FakeXiechengAPI\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\.net\FakeXiechengAPI\FakeXiechengAPI\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+D:\.net\FakeXiechengAPI\FakeXiechengAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\.net\FakeXiechengAPI\FakeXiechengAPI\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll

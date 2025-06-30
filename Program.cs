@@ -2,6 +2,7 @@ using AutoMapper;
 using FakeXiechengAPI.Database;
 using FakeXiechengAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(setupAction =>
 {
     setupAction.ReturnHttpNotAcceptable = true; // 当客户端请求格式（Accept）无法匹配时，是否返回406
+}).AddNewtonsoftJson(setupAction =>
+{
+    setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 }).AddXmlDataContractSerializerFormatters();
 // 依赖注入
 // 当你在项目中需要使用 ITouristRouteRepository 接口的服务时，

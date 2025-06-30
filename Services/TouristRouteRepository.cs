@@ -36,6 +36,16 @@ namespace FakeXiechengAPI.Services
             _context.TouristRoutePictures.Add(touristRoutePicture);
         }
 
+        public void DeleteTouristRoute(TouristRoute touristRoute)
+        {
+            _context.TouristRoutes.Remove(touristRoute);
+        }
+
+        public void DeleteTouristRoutePicture(TouristRoutePicture picture)
+        {
+            _context.TouristRoutePictures.Remove(picture);
+        }
+
         public IEnumerable<TouristRoute> GetAllTouristRoutes(string keyword, string operatorType, int? ratingValue)
         {
             // include vs join    实现表连接

@@ -85,6 +85,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FakeXiechengAPI.controllers.TouristRoutesController",
+    "Method": "PartiallyUpdateTouristRoute",
+    "RelativePath": "api/TouristRoutes/{touristRouteId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "touristRouteId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "patchDocument",
+        "Type": "Microsoft.AspNetCore.JsonPatch.Operations.Operation[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FakeXiechengAPI.controllers.TouristRoutePicturesController",
     "Method": "GetPictureListForTouristRoute",
     "RelativePath": "api/touristRoutes/{touristRouteId}/pictures",

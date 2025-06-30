@@ -26,6 +26,8 @@ namespace FakeXiechengAPI.Profiles
 
             // 将TouristRouteForUpdateDto映射给TouristRoute
             CreateMap<TouristRouteForUpdateDto, TouristRoute>();
+
+            CreateMap<TouristRoute, TouristRouteForUpdateDto>();
         
         }
     }

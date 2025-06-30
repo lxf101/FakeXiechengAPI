@@ -49,6 +49,7 @@ namespace FakeXiechengAPI.controllers
             return Ok(_mapper.Map<TouristRoutePictureDto>(picture));
         }
 
+        [HttpPost]
         public IActionResult CreateTouristRoutePicture([FromRoute] Guid touristRouteId, [FromBody] TouristRoutePictureForCreationDto touristRoutePictureForCreationDto)
         {
             // 检测旅游路线是否存在
@@ -64,6 +65,19 @@ namespace FakeXiechengAPI.controllers
             return CreatedAtRoute("GetPicture", new { touristRouteId = pictureModel.TouristRouteId, pictureId = pictureModel.Id}, pictureToReturn);
         }
 
+        [HttpDelete("{pictureId}")]
+        public IActionResult DeletePicture([FromRoute] Guid touristRouteId, [FromRoute] int pictureId)
+        {
+            // 检测旅游路线是否存在
+            if (!_touristRouteRepository.TouristRouteExist(touristRouteId))
+            {
+                return NotFound("旅游路线不存在");
+            }
+            var picture = _touristRouteRepository.GetPicture(pictureId);
+            _touristRouteRepository.DeleteTouristRoutePicture(picture);
+            _touristRouteRepository.Save();
+            return NoContent();
+        }
 
     }
 }

@@ -5,6 +5,9 @@ using AutoMapper;
 using System.Text.RegularExpressions;
 using FakeXiechengAPI.ResourceParameters;
 using FakeXiechengAPI.Models;
+using Microsoft.AspNetCore.JsonPatch;
+
+
 
 namespace FakeXiechengAPI.controllers
 {
@@ -101,7 +104,44 @@ namespace FakeXiechengAPI.controllers
             return NoContent();
         }
 
+        [HttpPatch("{touristRouteId}")]
+        public IActionResult PartiallyUpdateTouristRoute([FromRoute] Guid touristRouteId, [FromBody] JsonPatchDocument<TouristRouteForUpdateDto> patchDocument)
+        {
+            // 检测旅游路线是否存在
+            if (!_touristRouteRepository.TouristRouteExist(touristRouteId))
+            {
+                return NotFound("旅游路线不存在");
+            }
+            var touristRouteFromRepo = _touristRouteRepository.GetTouristRoute(touristRouteId);
+            var touristRouteToPatch = _mapper.Map<TouristRouteForUpdateDto>(touristRouteFromRepo);
+            patchDocument.ApplyTo(touristRouteToPatch, ModelState);
+            if (!TryValidateModel(touristRouteToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+            _mapper.Map(touristRouteToPatch, touristRouteFromRepo);
+            _touristRouteRepository.Save();
+            return NoContent(); // 返回204
+        }
 
+        [HttpDelete("{touristRouteId}")]
+        public IActionResult DeleteTouristRoute([FromRoute] Guid touristRouteId)
+        {
+            // 检测旅游路线是否存在
+            if (!_touristRouteRepository.TouristRouteExist(touristRouteId))
+            {
+                return NotFound("旅游路线不存在");
+            }
+            var route = _touristRouteRepository.GetTouristRoute(touristRouteId);
+            _touristRouteRepository.DeleteTouristRoute(route);
+            _touristRouteRepository.Save();
+            return NoContent();
+        }
 
+        //[HttpDelete("({touristIDs})")]
+        //public IActionResult DeleteByIDs([FromRoute] IEnumerable<Guid> touristIDs)
+        //{
+
+        //}
     }
 }
