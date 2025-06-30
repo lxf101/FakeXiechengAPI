@@ -64,6 +64,27 @@
     "EndpointName": "GetTouristRouteById"
   },
   {
+    "ContainingType": "FakeXiechengAPI.controllers.TouristRoutesController",
+    "Method": "UpdateTouristRoute",
+    "RelativePath": "api/TouristRoutes/{touristRouteId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "touristRouteId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "touristRouteForUpdateDto",
+        "Type": "FakeXiechengAPI.Dtos.TouristRouteForUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FakeXiechengAPI.controllers.TouristRoutePicturesController",
     "Method": "GetPictureListForTouristRoute",
     "RelativePath": "api/touristRoutes/{touristRouteId}/pictures",

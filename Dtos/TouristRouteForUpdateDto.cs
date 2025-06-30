@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FakeXiechengAPI.Dtos
 {
-    public class TouristRouteForCreationDto: TouristRouteForManipulationDto //: IValidatableObject
+    public class TouristRouteForUpdateDto: TouristRouteForManipulationDto
     {
         
     }

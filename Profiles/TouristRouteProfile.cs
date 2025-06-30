@@ -23,6 +23,9 @@ namespace FakeXiechengAPI.Profiles
             CreateMap<TouristRouteForCreationDto, TouristRoute>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.CreateTime, opt => opt.MapFrom(src => DateTime.Now));
+
+            // 将TouristRouteForUpdateDto映射给TouristRoute
+            CreateMap<TouristRouteForUpdateDto, TouristRoute>();
         
         }
     }
