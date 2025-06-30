@@ -20,13 +20,13 @@ namespace FakeXiechengAPI.controllers
         }
 
         [HttpGet]
-        public IActionResult GetPictureListForTouristRoute(Guid touristRouteId)
+        public async Task<IActionResult> GetPictureListForTouristRoute(Guid touristRouteId)
         {
-            if (!_touristRouteRepository.TouristRouteExist(touristRouteId))
+            if (!await _touristRouteRepository.TouristRouteExistAsync(touristRouteId))
             {
                 return NotFound("旅游路线不存在！");
             }
-            var pictures = _touristRouteRepository.GetPicturesByTouristRouteId(touristRouteId);
+            var pictures = await _touristRouteRepository.GetPicturesByTouristRouteIdAsync(touristRouteId);
             if(pictures == null || pictures.Count() <= 0)
             {
                 return NotFound("图片不存在！");
@@ -35,13 +35,13 @@ namespace FakeXiechengAPI.controllers
         }
 
         [HttpGet("{pictureId}", Name = "GetPicture")]
-        public IActionResult GetPicture(Guid touristRouteId, int pictureId)
+        public async Task<IActionResult> GetPicture(Guid touristRouteId, int pictureId)
         {
-            if (!_touristRouteRepository.TouristRouteExist(touristRouteId))
+            if (!await _touristRouteRepository.TouristRouteExistAsync(touristRouteId))
             {
                 return NotFound("旅游路线不存在");
             }
-            var picture = _touristRouteRepository.GetPicture(pictureId);
+            var picture = await _touristRouteRepository.GetPictureAsync(pictureId);
             if(picture == null)
             {
                 return NotFound("旅游路线图片不存在");
@@ -50,32 +50,32 @@ namespace FakeXiechengAPI.controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTouristRoutePicture([FromRoute] Guid touristRouteId, [FromBody] TouristRoutePictureForCreationDto touristRoutePictureForCreationDto)
+        public async Task<IActionResult> CreateTouristRoutePicture([FromRoute] Guid touristRouteId, [FromBody] TouristRoutePictureForCreationDto touristRoutePictureForCreationDto)
         {
             // 检测旅游路线是否存在
-            if (!_touristRouteRepository.TouristRouteExist(touristRouteId))
+            if (!await _touristRouteRepository.TouristRouteExistAsync(touristRouteId))
             {
                 return NotFound("旅游路线不存在");
             }
             var pictureModel = _mapper.Map<TouristRoutePicture>(touristRoutePictureForCreationDto);
             _touristRouteRepository.AddTouristRoutePicture(touristRouteId, pictureModel);
-            _touristRouteRepository.Save();
+            await _touristRouteRepository.SaveAsync();
 
             var pictureToReturn = _mapper.Map<TouristRoutePictureDto>(pictureModel);
             return CreatedAtRoute("GetPicture", new { touristRouteId = pictureModel.TouristRouteId, pictureId = pictureModel.Id}, pictureToReturn);
         }
 
         [HttpDelete("{pictureId}")]
-        public IActionResult DeletePicture([FromRoute] Guid touristRouteId, [FromRoute] int pictureId)
+        public async Task<IActionResult> DeletePicture([FromRoute] Guid touristRouteId, [FromRoute] int pictureId)
         {
             // 检测旅游路线是否存在
-            if (!_touristRouteRepository.TouristRouteExist(touristRouteId))
+            if (!await _touristRouteRepository.TouristRouteExistAsync(touristRouteId))
             {
                 return NotFound("旅游路线不存在");
             }
-            var picture = _touristRouteRepository.GetPicture(pictureId);
+            var picture = await _touristRouteRepository.GetPictureAsync(pictureId);
             _touristRouteRepository.DeleteTouristRoutePicture(picture);
-            _touristRouteRepository.Save();
+            await _touristRouteRepository.SaveAsync();
             return NoContent();
         }
 

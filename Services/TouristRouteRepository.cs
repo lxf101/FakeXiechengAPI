@@ -46,7 +46,7 @@ namespace FakeXiechengAPI.Services
             _context.TouristRoutePictures.Remove(picture);
         }
 
-        public IEnumerable<TouristRoute> GetAllTouristRoutes(string keyword, string operatorType, int? ratingValue)
+        public async Task<IEnumerable<TouristRoute>> GetAllTouristRoutesAsync(string keyword, string operatorType, int? ratingValue)
         {
             // include vs join    实现表连接
             // IQueryable<T> 是一个可以构造查询的接口，支持延迟执行。
@@ -73,34 +73,32 @@ namespace FakeXiechengAPI.Services
                         break;
                 }
             }
-
-
-            return result.ToList();
+            return await result.ToListAsync();
         }
 
-        public TouristRoutePicture GetPicture(int pictureId)
+        public async Task<TouristRoutePicture> GetPictureAsync(int pictureId)
         {
-            return _context.TouristRoutePictures.Where(p => p.Id == pictureId).FirstOrDefault();
+            return await _context.TouristRoutePictures.Where(p => p.Id == pictureId).FirstOrDefaultAsync();
         }
 
-        public IEnumerable<TouristRoutePicture> GetPicturesByTouristRouteId(Guid touristRouteId)
+        public async Task<IEnumerable<TouristRoutePicture>> GetPicturesByTouristRouteIdAsync(Guid touristRouteId)
         {
-            return _context.TouristRoutePictures.Where(p => p.TouristRouteId == touristRouteId).ToList();
+            return await _context.TouristRoutePictures.Where(p => p.TouristRouteId == touristRouteId).ToListAsync();
         }
 
-        public TouristRoute GetTouristRoute(Guid touristRouteId)
+        public async Task<TouristRoute> GetTouristRouteAsync(Guid touristRouteId)
         {
-            return _context.TouristRoutes.Include(t=>t.TouristRoutePictures).FirstOrDefault(n => n.Id == touristRouteId);
+            return await _context.TouristRoutes.Include(t=>t.TouristRoutePictures).FirstOrDefaultAsync(n => n.Id == touristRouteId);
         }
 
-        public bool Save()
+        public async Task<bool> SaveAsync()
         {
-            return (_context.SaveChanges() >= 0);
+            return (await _context.SaveChangesAsync() >= 0);
         }
 
-        public bool TouristRouteExist(Guid touristRouteId)
+        public async Task<bool> TouristRouteExistAsync(Guid touristRouteId)
         {
-            return _context.TouristRoutes.Any(t => t.Id == touristRouteId);
+            return await _context.TouristRoutes.AnyAsync(t => t.Id == touristRouteId);
         }
     }
 }
