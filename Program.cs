@@ -1,10 +1,35 @@
 using AutoMapper;
 using FakeXiechengAPI.Database;
 using FakeXiechengAPI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var secretByte = Encoding.UTF8.GetBytes(builder.Configuration["Authentication:SecretKey"]);
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Authentication:Issuer"],
+
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Authentication:Audience"],
+
+            ValidateLifetime = true,
+
+            IssuerSigningKey = new SymmetricSecurityKey(secretByte)
+        };
+    });
 
 // 注册 MVC 控制器服务
 builder.Services.AddControllers(setupAction =>
@@ -29,6 +54,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
+
+// 你是谁？
+app.UseAuthentication();
+// 你可以干什么？你有什么权限？
+app.UseAuthorization();
 
 //app.MapGet("/", () => "Hello World!");
 // 当接收到 http请求后，可以保证能正确的路由到相应的控制器中

@@ -4,10 +4,13 @@ using Microsoft.EntityFrameworkCore.Storage.Json;
 using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace FakeXiechengAPI.Database
 {
-    public class AppDbContext: DbContext
+    // IdentityUser是身份认证的数据库结构
+    public class AppDbContext: IdentityDbContext<IdentityUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {

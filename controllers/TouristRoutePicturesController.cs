@@ -2,6 +2,7 @@
 using FakeXiechengAPI.Dtos;
 using FakeXiechengAPI.Models;
 using FakeXiechengAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FakeXiechengAPI.controllers
@@ -50,6 +51,7 @@ namespace FakeXiechengAPI.controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> CreateTouristRoutePicture([FromRoute] Guid touristRouteId, [FromBody] TouristRoutePictureForCreationDto touristRoutePictureForCreationDto)
         {
             // 检测旅游路线是否存在
@@ -66,6 +68,7 @@ namespace FakeXiechengAPI.controllers
         }
 
         [HttpDelete("{pictureId}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> DeletePicture([FromRoute] Guid touristRouteId, [FromRoute] int pictureId)
         {
             // 检测旅游路线是否存在

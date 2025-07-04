@@ -106,6 +106,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FakeXiechengAPI.controllers.TouristRoutesController",
+    "Method": "DeleteTouristRoute",
+    "RelativePath": "api/TouristRoutes/{touristRouteId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "touristRouteId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FakeXiechengAPI.controllers.TouristRoutePicturesController",
     "Method": "GetPictureListForTouristRoute",
     "RelativePath": "api/touristRoutes/{touristRouteId}/pictures",
@@ -125,7 +141,7 @@
     "ContainingType": "FakeXiechengAPI.controllers.TouristRoutePicturesController",
     "Method": "CreateTouristRoutePicture",
     "RelativePath": "api/touristRoutes/{touristRouteId}/pictures",
-    "HttpMethod": "",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -163,5 +179,42 @@
     ],
     "ReturnTypes": [],
     "EndpointName": "GetPicture"
+  },
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.TouristRoutePicturesController",
+    "Method": "DeletePicture",
+    "RelativePath": "api/touristRoutes/{touristRouteId}/pictures/{pictureId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "touristRouteId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "pictureId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.AuthenticateController",
+    "Method": "login",
+    "RelativePath": "auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "FakeXiechengAPI.Dtos.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

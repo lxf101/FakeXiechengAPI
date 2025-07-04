@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using FakeXiechengAPI.ResourceParameters;
 using FakeXiechengAPI.Models;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -72,6 +73,8 @@ namespace FakeXiechengAPI.controllers
 
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateTouristRoute([FromBody] TouristRouteForCreationDto touristRouteForCreationDto)
         {
             // 新Dto与model的映射关系
@@ -84,6 +87,8 @@ namespace FakeXiechengAPI.controllers
         }
 
         [HttpPut("{touristRouteId}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize]
         public async Task<IActionResult> UpdateTouristRoute([FromRoute] Guid touristRouteId, [FromBody] TouristRouteForUpdateDto touristRouteForUpdateDto)
         {
             // 1. 检测旅游路线是否存在
@@ -105,6 +110,8 @@ namespace FakeXiechengAPI.controllers
         }
 
         [HttpPatch("{touristRouteId}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize]
         public async Task<IActionResult> PartiallyUpdateTouristRoute([FromRoute] Guid touristRouteId, [FromBody] JsonPatchDocument<TouristRouteForUpdateDto> patchDocument)
         {
             // 检测旅游路线是否存在
@@ -125,6 +132,8 @@ namespace FakeXiechengAPI.controllers
         }
 
         [HttpDelete("{touristRouteId}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize]
         public async Task<IActionResult> DeleteTouristRoute([FromRoute] Guid touristRouteId)
         {
             // 检测旅游路线是否存在
