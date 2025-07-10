@@ -1,5 +1,6 @@
 using AutoMapper;
 using FakeXiechengAPI.Database;
+using FakeXiechengAPI.Models;
 using FakeXiechengAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +11,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -52,6 +53,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // AutoMapper服务依赖注入
 // 扫描 profile 文件
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// 注册http请求服务
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

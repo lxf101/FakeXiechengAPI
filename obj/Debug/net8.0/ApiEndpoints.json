@@ -1,5 +1,83 @@
 [
   {
+    "ContainingType": "FakeXiechengAPI.controllers.OrdersController",
+    "Method": "GetOrders",
+    "RelativePath": "api/orders",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.OrdersController",
+    "Method": "getOrderById",
+    "RelativePath": "api/orders/{orderId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.ShoppingCartController",
+    "Method": "GetShoppingCart",
+    "RelativePath": "api/shoppingCart",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.ShoppingCartController",
+    "Method": "Checkout",
+    "RelativePath": "api/shoppingCart/checkout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.ShoppingCartController",
+    "Method": "AddShoppingCartItem",
+    "RelativePath": "api/shoppingCart/items",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addShoppingCartItemDto",
+        "Type": "FakeXiechengAPI.Dtos.AddShoppingCartItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.ShoppingCartController",
+    "Method": "DeleteShoppingCartItem",
+    "RelativePath": "api/shoppingCart/items/{itemId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "itemId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FakeXiechengAPI.controllers.TouristRoutesController",
     "Method": "GetTouristRoutes",
     "RelativePath": "api/TouristRoutes",
@@ -7,6 +85,16 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
       {
         "Name": "Keyword",
         "Type": "System.String",
@@ -212,6 +300,22 @@
       {
         "Name": "loginDto",
         "Type": "FakeXiechengAPI.Dtos.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FakeXiechengAPI.controllers.AuthenticateController",
+    "Method": "Register",
+    "RelativePath": "auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerDto",
+        "Type": "FakeXiechengAPI.Dtos.RegisterDto",
         "IsRequired": true
       }
     ],

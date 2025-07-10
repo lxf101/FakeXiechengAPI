@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "kfvrFkwCTcnkm/V5LP8i+o/9I/G8cGCYBbwwkNXHSZw=",
+  "Source": "FakeXiechengAPI",
+  "BasePath": "_content/FakeXiechengAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

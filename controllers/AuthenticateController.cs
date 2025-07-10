@@ -1,4 +1,6 @@
 ﻿using FakeXiechengAPI.Dtos;
+using FakeXiechengAPI.Models;
+using FakeXiechengAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,14 +17,16 @@ namespace FakeXiechengAPI.controllers
     public class AuthenticateController : Controller
     {
         private readonly IConfiguration _configuration;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ITouristRouteRepository _touristRouteRepository;
 
-        public AuthenticateController(IConfiguration configuration, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AuthenticateController(IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ITouristRouteRepository touristRouteRepository)
         {
             _configuration = configuration;
             _userManager = userManager;
             _signInManager = signInManager;
+            _touristRouteRepository = touristRouteRepository;
         }
 
         [AllowAnonymous]
@@ -58,7 +62,7 @@ namespace FakeXiechengAPI.controllers
             var signingCredentials = new SigningCredentials(signingKey, singingAlgorithem);
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["Authentication:Isssurer"],
+                issuer: _configuration["Authentication:Issuer"],
                 audience: _configuration["Authentication:Audience"],
                 claims,
                 notBefore: DateTime.UtcNow,
@@ -75,7 +79,7 @@ namespace FakeXiechengAPI.controllers
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
             // 1. 使用用户名创建用户对象
-            var user = new IdentityUser()
+            var user = new ApplicationUser()
             {
                 UserName = registerDto.Email,
                 Email = registerDto.Email
@@ -87,7 +91,16 @@ namespace FakeXiechengAPI.controllers
             {
                 return BadRequest();
             }
-            // 3. return
+
+            // 3. 给用户初始化购物车
+            var shoppingCart = new ShoppingCart()
+            {
+                Id = Guid.NewGuid(),
+                UserId = user.Id
+            };
+            await _touristRouteRepository.CreateShoppingCart(shoppingCart);
+            await _touristRouteRepository.SaveAsync();
+            // 4. return
             return Ok();
         } 
     }

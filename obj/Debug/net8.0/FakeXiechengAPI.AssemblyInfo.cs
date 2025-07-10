@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FakeXiechengAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f09dd91a4c0ffdd8acec0c6475f640859108f550")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a497bd114c14ec7804f4f6990a3a00c54debdab0")]
 [assembly: System.Reflection.AssemblyProductAttribute("FakeXiechengAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FakeXiechengAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

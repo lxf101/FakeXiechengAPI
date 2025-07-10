@@ -4,6 +4,33 @@ namespace FakeXiechengAPI.ResourceParameters
 {
     public class TouristRouteResourceParameters
     {
+        private int _PageNumber = 1;
+        public int PageNumber { 
+            get {
+                return _PageNumber;
+            
+            }
+            set { 
+                if(value >= 1)
+                {
+                    _PageNumber = value;
+                }
+            } 
+        }
+        private int _PageSize = 10;
+        const int MaxPageSize = 50;
+        public int PageSize { 
+            get 
+            {
+                return _PageSize;
+            } 
+            set { 
+                if(value >= 1)
+                {
+                    _PageSize = (value > MaxPageSize) ? MaxPageSize : value;
+                }
+            }
+        }
         public string Keyword { get; set; }
         private string _rating;
         public string Rating { 

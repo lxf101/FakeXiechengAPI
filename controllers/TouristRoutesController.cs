@@ -30,7 +30,7 @@ namespace FakeXiechengAPI.controllers
         [HttpGet]
         public async Task<IActionResult> GetTouristRoutes([FromQuery] TouristRouteResourceParameters parameters)
         {
-            var routes = await _touristRouteRepository.GetAllTouristRoutesAsync(parameters.Keyword, parameters.RatingOperator, parameters.RatingValue);
+            var routes = await _touristRouteRepository.GetAllTouristRoutesAsync(parameters.Keyword, parameters.RatingOperator, parameters.RatingValue, parameters.PageSize, parameters.PageNumber);
             if(routes == null || routes.Count() <= 0)
             {
                 return NotFound("没有旅游路线");
@@ -74,11 +74,12 @@ namespace FakeXiechengAPI.controllers
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]     // (Roles = "Admin")
         public async Task<IActionResult> CreateTouristRoute([FromBody] TouristRouteForCreationDto touristRouteForCreationDto)
         {
             // 新Dto与model的映射关系
             var touristRouteModel = _mapper.Map<TouristRoute>(touristRouteForCreationDto);
+            Console.WriteLine(touristRouteModel);
             _touristRouteRepository.AddTouristRoute(touristRouteModel);
             await _touristRouteRepository.SaveAsync();
 
